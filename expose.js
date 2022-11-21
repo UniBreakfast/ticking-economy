@@ -4,6 +4,8 @@ const { entries, keys } = Object
 
 expose({ expose })
 
+let timerId
+
 function expose(...objects) {
   for (const obj of objects) {
     for (const [key, value] of entries(obj)) {
@@ -11,9 +13,9 @@ function expose(...objects) {
     }
   }
 
-  clearTimeout(expose.timerId)
+  clearTimeout(timerId)
 
-  expose.timerId = setTimeout(() => {
+  timerId = setTimeout(() => {
     console.log(keys(expose).join(', '))
     console.dir(expose)
   }, 1_000)
